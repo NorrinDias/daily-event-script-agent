@@ -37,7 +37,7 @@ def generate_event_list(date_str):
 def generate_script(event_title, style, conspiracy):
     conspiracy_prompt = "Include known conspiracy theories." if conspiracy else "Do not include any conspiracies."
     prompt = f"""
-    You are a voice-over narrator creating a 2-minute script for a short-form video on the event: "On {date_str}, {event_title}". Write in a compelling tone with short, vivid sentences. Add visual suggestions in brackets. Style: {style}. {conspiracy_prompt}
+    You are a voice-over narrator creating a 2-minute script for a short-form video on the event: "On {event_title}". Write in a compelling tone with short, vivid sentences starting the script wiht "On {date_str}". Add visual suggestions in brackets. Style: {style}. {conspiracy_prompt}
     """
     return call_groq(prompt)
 

@@ -60,3 +60,34 @@ if "events_list" in st.session_state:
             script = generate_script(selected, style, conspiracy)
         st.subheader("🎙️ Narration Script")
         st.text_area("Copy your script:", script, height=400)
+
+        import openai
+from openai import OpenAI
+
+client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+
+def generate_event_list(date_str):
+    prompt = f"""
+    You are a historical events researcher. Given the date {date_str}, return a list of 5–7 unique, strange, or little-known events from 1900 to the present. Prioritize topics in space, war, science, pop culture, or government history. Format as:
+
+    1. Event Title (Year) – One-sentence hook
+    """
+    response = client.chat.completions.create(
+        model="gpt-4",
+        messages=[{"role": "user", "content": prompt}],
+        temperature=0.7
+    )
+    return response.choices[0].message.content.strip()
+
+def generate_script(event_title, style, conspiracy):
+    conspiracy_prompt = "Include known conspiracy theories." if conspiracy else "Do not include any conspiracies."
+    prompt = f"""
+    You are a voice-over narrator creating a 2-minute script for a short-form video on the event: "{event_title}". Write in a compelling tone with short, vivid sentences. Add visual suggestions in brackets. Style: {style}. {conspiracy_prompt}
+    """
+    response = client.chat.completions.create(
+        model="gpt-4",
+        messages=[{"role": "user", "content": prompt}],
+        temperature=0.8
+    )
+    return response.choices[0].message.content.strip()
+

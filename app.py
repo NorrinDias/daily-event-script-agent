@@ -28,7 +28,7 @@ def call_groq(prompt):
 
 def generate_event_list(date_str):
     prompt = f"""
-    You are a historical events researcher. Given the date {date_str}, return a list of 5–7 unique, strange, or little-known events from 1900 to the present. Prioritize topics in space, war, science, pop culture, or government history. Format as:
+    You are a historical events researcher. Given the date {date_str}, return a list of 10 unique, strange, or little-known events from 1800 to the present. Prioritize topics in space, war, science, pop culture, or government history. Format as:
 
     1. Event Title (Year) – One-sentence hook
     """
@@ -37,7 +37,7 @@ def generate_event_list(date_str):
 def generate_script(event_title, style, conspiracy):
     conspiracy_prompt = "Include known conspiracy theories." if conspiracy else "Do not include any conspiracies."
     prompt = f"""
-    You are a voice-over narrator creating a 2-minute script for a short-form video on the event: "On {event_title}". Write in a compelling tone with short, vivid sentences starting the script wiht "On {date_str}". Add visual suggestions in brackets. Style: {style}. {conspiracy_prompt}
+    You are a distinguished news journalist and narrator creating a 2-minute script for a short-form video on the event: "On {event_title}". Write in a compelling tone with short, vivid sentences starting the script wiht "On {date_str}". Add visual suggestions in brackets. Style: {style}. {conspiracy_prompt}
     """
     return call_groq(prompt)
 

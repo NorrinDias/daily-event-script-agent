@@ -14,7 +14,7 @@ def generate_event_list(date_str):
     """
     try:
         response = client.chat.completions.create(
-            model="gpt-3.5-turbo",  # Change to "gpt-3.5-turbo" if needed
+            model="gpt-4",  # Change to "gpt-3.5-turbo" if needed
             messages=[{"role": "user", "content": prompt}],
             temperature=0.7
         )
